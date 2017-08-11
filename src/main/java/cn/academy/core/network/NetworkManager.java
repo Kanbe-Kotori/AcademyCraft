@@ -15,7 +15,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 public class NetworkManager
 {
     public static SimpleNetworkWrapper instance = NetworkRegistry.INSTANCE.newSimpleChannel("AcademyCraft");
-    private static int nextID = 0;//我不是很确定这儿的正确性，因为这一整块的代码我都是看着1.8的教程敲出来的。。。
+    private static int nextID = 0;
     public static void init(FMLPreInitializationEvent event)
     {
         registerMessage(MessageConfig.Handler.class, MessageConfig.class, Side.CLIENT);

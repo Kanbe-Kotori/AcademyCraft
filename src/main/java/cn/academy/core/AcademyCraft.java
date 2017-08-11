@@ -16,6 +16,7 @@ import cn.lambdalib.annoreg.mc.RegMessageHandler;
 import cn.lambdalib.crafting.CustomMappingHelper;
 import cn.lambdalib.crafting.RecipeRegistry;
 import cn.lambdalib.util.version.VersionUpdateUrl;
+import cn.nulladev.extrathings.MyRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -90,7 +91,7 @@ public class AcademyCraft {
         config = new Configuration(event.getSuggestedConfigurationFile());
 
         NetworkManager.init(event);
-        RegistrationManager.INSTANCE.registerAll(this, "PreInit");
+        RegistrationManager.INSTANCE.registerAll(this, "PreInit"); 
     }
 
     @EventHandler
@@ -98,6 +99,7 @@ public class AcademyCraft {
         RegistrationManager.INSTANCE.registerAll(this, "Init");
 
         FMLCommonHandler.instance().bus().register(this);
+        MyRegistry.INSTANCE.register();
     }
 
     @EventHandler

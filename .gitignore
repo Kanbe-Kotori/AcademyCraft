@@ -73,3 +73,11 @@ out/
 # Runtime Generic
 eclipse/
 logs/
+.cache-main
+CREDITS-fml.txt
+*.txt
+forge-1.7.10-10.13.4.1614-1.7.10-src.zip
+lib/LambdaLib-1.2.3-dev.jar
+lib/industrialcraft-2-2.1.484-experimental-api.jar
+src/main/resources/assets/academy/media/readme_template.txt
+src/main/resources/assets/academy/media/readme_template.txt
