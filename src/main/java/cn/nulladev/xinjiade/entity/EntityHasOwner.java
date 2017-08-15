@@ -1,4 +1,4 @@
-package cn.nulladev.extrathings.entity;
+package cn.nulladev.xinjiade.entity;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IEntityOwnable;

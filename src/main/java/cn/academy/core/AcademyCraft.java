@@ -16,11 +16,13 @@ import cn.lambdalib.annoreg.mc.RegMessageHandler;
 import cn.lambdalib.crafting.CustomMappingHelper;
 import cn.lambdalib.crafting.RecipeRegistry;
 import cn.lambdalib.util.version.VersionUpdateUrl;
-import cn.nulladev.extrathings.MyRegistry;
+import cn.nulladev.xinjiade.MyCommonProxy;
+import cn.nulladev.xinjiade.MyRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.FMLNetworkEvent.ClientDisconnectionFromServerEvent;
@@ -63,6 +65,10 @@ public class AcademyCraft {
 
     static final String[] scripts = { "generic", "ability", "electromaster", "teleporter", "meltdowner",
             "generic_skills" };
+    
+    @SidedProxy(clientSide = "cn.nulladev.xinjiade.MyCommonProxy",
+        		serverSide = "cn.nulladev.xinjiade.client.MyClientProxy")
+    public static MyCommonProxy proxy;
 
     public static Configuration config;
 
@@ -92,6 +98,7 @@ public class AcademyCraft {
 
         NetworkManager.init(event);
         RegistrationManager.INSTANCE.registerAll(this, "PreInit"); 
+        proxy.preInit(event);
     }
 
     @EventHandler
@@ -99,7 +106,8 @@ public class AcademyCraft {
         RegistrationManager.INSTANCE.registerAll(this, "Init");
 
         FMLCommonHandler.instance().bus().register(this);
-        MyRegistry.INSTANCE.register();
+        MyRegistry.INSTANCE.register(this);
+        proxy.init(event);
     }
 
     @EventHandler
@@ -112,6 +120,7 @@ public class AcademyCraft {
 
         // PostInit stage, including tutorial init, depends on registered recipes
         RegistrationManager.INSTANCE.registerAll(this, "PostInit");
+        proxy.postInit(event);
 
         if (DEBUG_MODE && false) {
             System.out.printf("|-------------------------------------------------------\n");

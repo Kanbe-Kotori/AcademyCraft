@@ -1,4 +1,4 @@
-package cn.nulladev.extrathings.entity;
+package cn.nulladev.xinjiade.entity;
 
 import java.util.List;
 
@@ -40,11 +40,6 @@ public abstract class EntityFlying extends EntityHasOwner implements IProjectile
         this.age = _age;
     }
     
-    @SideOnly(Side.CLIENT)
-    public boolean isInRangeToRenderDist(double distance) {
-        return true;
-    }
-    
     @Override
 	public void setThrowableHeading(double vdx, double vdy, double vdz, float v_value, float p_70186_8_) {
 		Vec3 vdr = Vec3.createVectorHelper(vdx, vdy, vdz).normalize();
@@ -65,13 +60,14 @@ public abstract class EntityFlying extends EntityHasOwner implements IProjectile
     }
     
     public void setVelocity(Vec3 vDir, float v) {
+    	System.out.println("°¡");
     	vDir.normalize();
     	this.setVelocity(v * vDir.xCoord, v * vDir.yCoord, v * vDir.zCoord );
     }
 
     @Override
     public void onUpdate() {
-    	    	
+    	    	    	
         this.lastTickPosX = this.posX;
         this.lastTickPosY = this.posY;
         this.lastTickPosZ = this.posZ;
@@ -89,14 +85,15 @@ public abstract class EntityFlying extends EntityHasOwner implements IProjectile
 
         if (!this.worldObj.isRemote) {
             Entity flag = null;
-            List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0D, 1.0D, 1.0D));
+            AxisAlignedBB axisalignedbb = this.boundingBox.expand(this.width, this.width, this.width);
+            List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, axisalignedbb.addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0D, 1.0D, 1.0D));
             double d0 = 0.0D;
-            EntityPlayer entitylivingbase = this.getOwner();
+            EntityPlayer player = this.getOwner();
 
             for (int j = 0; j < list.size(); ++j) {
                 Entity entity = (Entity)list.get(j);
 
-                if (entity.canBeCollidedWith() && (entity != entitylivingbase)) {
+                if (entity.canBeCollidedWith() && (entity != player)) {
                     MovingObjectPosition movingobjectposition1 = entity.boundingBox.calculateIntercept(currentPos, nextPos);
 
                     if (movingobjectposition1 != null) {

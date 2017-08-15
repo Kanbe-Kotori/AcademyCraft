@@ -554,4 +554,4 @@ ac.converter.desc_template=转换%s到%s
 # 老子新加的
 ac.ability.airmanipulator.name=掀裙子使
 ac.ability.airmanipulator.basic_air_gun.name=基础空气炮
-ac.ability.airmanipulator.basic_air_gun.desc=将空气压缩成一坨并发射，并没有什么要说的
+ac.ability.airmanipulator.basic_air_gun.desc=将空气压缩成一坨并发射，可以用来掀裙子。

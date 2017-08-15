@@ -1,4 +1,4 @@
-package cn.nulladev.extrathings.entity;
+package cn.nulladev.xinjiade.entity;
 
 import cn.lambdalib.util.generic.MathUtils;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,8 +11,8 @@ public class EntityBasicAirGun extends EntityFlying {
 	
 	public static final int BASIC_AGE = 100;
 	public static final int MAX_AGE = 160;
-	public static final float BASIC_VELOCITY = 0.3F;
-	public static final float MAX_VELOCITY = 0.8F;
+	public static final float BASIC_VELOCITY = 0.6F;
+	public static final float MAX_VELOCITY = 0.9F;
 	public static final float BASIC_DAMAGE = 6;
 	public static final float MAX_DAMAGE = 10;
 	
@@ -24,6 +24,7 @@ public class EntityBasicAirGun extends EntityFlying {
 
     public EntityBasicAirGun(World world, EntityPlayer thrower, float _exp, Vec3 _dir) {
         super(world, thrower, thrower.posX, thrower.posY + thrower.eyeHeight, thrower.posZ, INITIAL_SIZE, INITIAL_SIZE, getAge(_exp));
+    	System.out.println("°¡");
         this.setDecrease(0.95F);
         this.exp = _exp;
         this.direc = _dir;
@@ -43,14 +44,14 @@ public class EntityBasicAirGun extends EntityFlying {
     }
     
     private float getDamage(float exp) {
-    	return getBasicDamage(exp) * MathUtils.lerpf(1, DECREASE_RATE, this.ticksExisted / this.age);
+    	return getBasicDamage(exp) * MathUtils.lerpf(1, DECREASE_RATE, (float)this.ticksExisted / this.age);
     }
 
 	@Override
 	protected void onImpact(MovingObjectPosition pos) {
 		if (pos.entityHit != null) {
-			float value = this.getVelocity(exp) * MathUtils.lerpf(1, DECREASE_RATE, this.ticksExisted / this.age) * ( 0.5F / pos.entityHit.height);
-			pos.entityHit.addVelocity(- value * direc.xCoord, - value * direc.yCoord, - value * direc.zCoord);
+			float value = this.getVelocity(exp) * MathUtils.lerpf(1, DECREASE_RATE, this.ticksExisted / this.age) * ( 2.0F / pos.entityHit.height);
+			pos.entityHit.addVelocity(value * direc.xCoord, value * direc.yCoord, value * direc.zCoord);
 			pos.entityHit.attackEntityFrom(DamageSource.causePlayerDamage(this.getOwner()).setProjectile(), getDamage(exp));
 		}
 	}
